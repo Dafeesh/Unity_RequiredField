@@ -8,4 +8,4 @@ Useful if you use [SerializeField]/public fields to reference other components a
 
 -Attribute any field you want to be checked in the editor.
 
--If a required field is null the Editor will edit Play mode and display errors in the console.
+-If a required field is null the Editor will exit Play mode and display which objects failed the test in the console.

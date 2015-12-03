@@ -10,7 +10,12 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 #endif
 
-[InitializeOnLoad, AttributeUsage(AttributeTargets.Field)]
+[
+#if UNITY_EDITOR
+    InitializeOnLoad,
+#endif
+     AttributeUsage(AttributeTargets.Field)
+]
 public class RequiredField : Attribute
 {
 #if UNITY_EDITOR

@@ -44,7 +44,7 @@ public class RequiredField : Attribute
         {
             IEnumerable<FieldInfo> fieldInfos = obj.GetType()
                 .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where((f) => f.GetCustomAttributes(typeof(RequiredField), true)
+                .Where((f) => f.GetCustomAttributes(typeof(RequiredField), inherit: true)
                     .Any((o) => o is RequiredField));
 
             foreach (FieldInfo fieldInfo in fieldInfos)

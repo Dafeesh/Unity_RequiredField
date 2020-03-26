@@ -1,11 +1,11 @@
 # Required Field Attribute
-A simple fix to check if a field is assigned a value.
+An attribute to require that a field is assigned a value.
 
 Useful if you use [SerializeField]/public fields to reference other components and objects.
 
 ### How to use
--Place 'RequiredField.cs' in your active Unity project.
+-Import 'RequiredField.cs' into your active Unity project.
 
--Attribute any field you want to be checked in the editor.
+-Attribute onto any field(s) you want.
 
--If a required field is null the Editor will exit Play mode and display which objects failed the test in the console.
+-If a required field is null, and the Editor enters Play mode, it will exit Play mode and loudly error.

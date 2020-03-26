@@ -66,15 +66,17 @@ public class RequiredField : Attribute
 
     /* Can also...
      * 
+    
         if (firstMissingReference != null)
             firstMissingReference.StartCoroutine(StopEditorAtEndOfFrame());
     }
-        static IEnumerator StopEditorAtEndOfFrame()
-        {
-            yield return new WaitForEndOfFrame();
-            EditorApplication.isPlaying = false;
-        }
+
+    static IEnumerator StopEditorAtEndOfFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        EditorApplication.isPlaying = false;
     }
+
     */
 #endif
 }

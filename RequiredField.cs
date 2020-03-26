@@ -21,18 +21,23 @@ public class RequiredField : Attribute
 #if UNITY_EDITOR
     static RequiredField()
     {
-        EditorApplication.playmodeStateChanged += OnPlaymodeStateChanged;
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
     }
 
-    static void OnPlaymodeStateChanged()
+    static void OnPlayModeStateChanged(PlayModeStateChange change)
     {
-        if (EditorApplication.isPlaying)
+        if (change == PlayModeStateChange.EnteredPlayMode)
+        {
             CheckRequiredFields();
+        }
     }
 
-    //[DidReloadScripts] //Optional if you want to check whenever scripts compile.
+    //[DidReloadScripts] //Optional if you also want to check whenever scripts compile
     static void CheckRequiredFields()
     {
+        if (!EditorApplication.isPlaying)
+            return;
+
         MonoBehaviour firstMissingReference = null;
         MonoBehaviour[] allComponents = GameObject.FindObjectsOfType<MonoBehaviour>();
         foreach (var obj in allComponents)
@@ -55,14 +60,21 @@ public class RequiredField : Attribute
             }
         }
 
-        if (firstMissingReference != null && EditorApplication.isPlaying)
-            firstMissingReference.StartCoroutine(StopEditorAtEndOfFrame());
+        if (firstMissingReference != null)
+            EditorApplication.isPlaying = false;
     }
 
-    static IEnumerator StopEditorAtEndOfFrame()
-    {
-        yield return new WaitForEndOfFrame();
-        EditorApplication.isPlaying = false;
+    /* Can also...
+     * 
+        if (firstMissingReference != null)
+            firstMissingReference.StartCoroutine(StopEditorAtEndOfFrame());
     }
+        static IEnumerator StopEditorAtEndOfFrame()
+        {
+            yield return new WaitForEndOfFrame();
+            EditorApplication.isPlaying = false;
+        }
+    }
+    */
 #endif
 }
